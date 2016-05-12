@@ -1,5 +1,7 @@
 package Pink;
 
+use strict;
+
 sub new{
     my ($classe, $srcdir) = @_;
     my $this = {
@@ -14,4 +16,6 @@ sub new{
     return $this;
 }
 
-$obj = Pink->new("toto");
+ 1;
+ 
+# $obj = Pink->new("toto"); # comment use strict;

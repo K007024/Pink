@@ -18,14 +18,13 @@ sub new{
         "lecteur" => Lecteur->new(),
         "afficheur" => Afficheur->new()
     };
-    
-    
+
     $this->{srcdir} = $srcdir if $srcdir; # maj   
     
     bless ($this, $classe);
 
     $this->getfiles();
-    
+
     return $this;
 }
 
@@ -35,7 +34,7 @@ sub getfiles {
     $this->{fichiers} = \@fichiers if @fichiers;
 }
 
-sub Lire {
+sub lire {
     my $this = shift @_;
     my @fichiers = @{$this->{fichiers}};
     my %content;
@@ -49,16 +48,14 @@ sub Lire {
     }
     
     $this->{content} = \%content if %content;
-    # print Dumper ($this->{content});
-    
+
     return;
 }
 
-sub Afficher {
+sub afficher {
     my $this = shift @_;
-    
     my %content = %{$this->{content}};
-    print Dumper \%content;
+    # print Dumper \%content;
     
     foreach my $file (keys %content)
     {
@@ -72,22 +69,13 @@ sub Afficher {
     }
     return;
 }
-
  1;
- 
  
  unless (caller) # eq if __name__ == '__main__':
  {
-    # comment use strict;
-    # my $obj = Pink->new();;
     my $obj = Pink->new("../ressources"); 
-    
-    $obj->Lire();
-    $obj->Afficher();
-    
-    # use Data::Dumper;
-    # print Dumper $obj;
-    # print Dumper (\%record);
+    $obj->lire();
+    $obj->afficher();
  }
  
 

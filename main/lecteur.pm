@@ -1,6 +1,8 @@
 package Lecteur;
 
+use XML::LibXML;
 use strict;
+use Data::Dumper;
 
 sub new
 {
@@ -15,18 +17,33 @@ sub lire
 {
     my $this = shift @_;
     my $filepath = shift @_;
+
+    my $parser = XML::LibXML->new();
+    my $root = ($parser->parse_file($filepath))->getDocumentElement;
     
-    print "Lecteur::lire called\n";
+    # Actors
+    my @acteurs;
+    foreach my $actor ($root->getElementsByTagName('ownedActors')) 
+    {
+        my $name = $actor->getAttribute("name");
+        push @acteurs, $name;
+    }
     
-    # read files
+    # fonctions
+    my @fonctions;
+    my @ownedOperationalActivities = $root->getElementsByTagName('ownedOperationalActivities');
+    foreach my $ownedOperationalActivity (@ownedOperationalActivities) {
+        foreach my $fonction ($ownedOperationalActivity->getElementsByTagName('ownedFunctions')) {
+            my $name = $fonction->getAttribute("name");
+            push @fonctions, $name;
+        }
+    }
     
-    # debug
-    my %content = (
-        "Actors" => "TBD", 
-        "Operational Activities" => "TBD"
-    );
+    my %content;
+    $content{"Actors"} = [@acteurs];
+    $content{"Operational Activities"} = [@fonctions];
+    # print Dumper \%content;
     
     return %content;
 }
-
 1;

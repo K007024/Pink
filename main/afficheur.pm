@@ -17,16 +17,14 @@ sub afficher
     my $this = shift @_;
     my %filecontent = %{shift @_};
     
-    print "\nAfficheur::afficher called\n";
-    
     # print join("|", sort keys(%filecontent)), "\n";
     # print Dumper \%filecontent;
     
-    foreach my $element (keys %filecontent)
-    {
+    foreach my $element (sort keys %filecontent){
         print $element, "\n";
-        print "\t\t", $filecontent{$element}, "\n";
+        foreach my $item (@{$filecontent{$element}}){
+            print "\t\t$item\n";
+        }
     }
-    
 }
 1;

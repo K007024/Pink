@@ -21,10 +21,12 @@ sub afficher
     # print Dumper \%filecontent;
     
     foreach my $element (sort keys %filecontent){
-        print $element, "\n";
-        foreach my $item (@{$filecontent{$element}}){
-            print "\t\t$item\n";
-        }
+        print "\n$element\n\t\t";
+        print join("\n\t\t", @{$filecontent{$element}});
+        
+        # foreach my $item (@{$filecontent{$element}}){
+            # print "\t\t$item\n";
+        # }
     }
 }
 1;
